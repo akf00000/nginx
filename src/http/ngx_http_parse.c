@@ -442,11 +442,13 @@ ngx_http_parse_request_line(ngx_http_request_t *r, ngx_buf_t *b)
 
             switch (ch) {
             case '/':
+                r->port_start = r->host_end + 1;
                 r->port_end = p;
                 r->uri_start = p;
                 state = sw_after_slash_in_uri;
                 break;
             case ' ':
+                r->port_start = r->host_end + 1;
                 r->port_end = p;
                 /*
                  * use single "/" from request line to preserve pointers,
